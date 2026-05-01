@@ -1,0 +1,157 @@
+# CS Best Practices: Canonical Resources
+
+Foundation reading for clean-code skill synthesis.
+
+> **Coverage note:** Not every book listed here drove the `/quality` framework's synthesis. About 10 of the 24 books here are deeply integrated into the agents (Clean Code, Refactoring, APOSD, Clean Architecture, GOOS, Art of Unit Testing, xUnit Test Patterns, Working Effectively with Legacy Code, DDD, Release It!). The remainder are listed for context, future reference, or because their concepts already filter through other primary sources. For the honest "what's actually synthesized vs. what's just listed" breakdown, see [`Code-Quality-Skills/README.md`](Code-Quality-Skills/README.md#whats-deliberately-not-synthesized).
+
+---
+
+## Books
+
+### The Canon
+
+| # | Title | Author(s) | Year | Focus |
+|---|-------|-----------|------|-------|
+| 1 | **Clean Code** | Robert C. Martin | 2008 | Naming, functions, comments, formatting, objects, error handling, TDD |
+| 2 | **Code Complete** (2nd ed.) | Steve McConnell | 2004 | Construction fundamentals — the encyclopedia |
+| 3 | **The Pragmatic Programmer** (20th anniv.) | Andrew Hunt, David Thomas | 1999/2019 | Mindset, habits, tool mastery, orthogonality |
+| 4 | **Design Patterns** (GoF) | Gamma, Helm, Johnson, Vlissides | 1994 | Creational, structural, behavioral patterns |
+| 5 | **Refactoring** (2nd ed.) | Martin Fowler | 1999/2018 | Smell catalog, refactoring mechanics, when/how to change code |
+| 6 | **A Philosophy of Software Design** | John Ousterhout | 2018/2021 | Complexity theory, deep modules, information hiding |
+| 7 | **Working Effectively with Legacy Code** | Michael Feathers | 2004 | Seams, test harnesses, safe change in untested systems |
+
+### Clean Architecture Trilogy (Uncle Bob)
+
+| # | Title | Author | Year | Focus |
+|---|-------|--------|------|-------|
+| 8 | **Clean Architecture** | Robert C. Martin | 2017 | Dependencies, layers, boundaries, SOLID at scale |
+| 9 | **The Clean Coder** | Robert C. Martin | 2011 | Professionalism, TDD discipline, estimates, pressure |
+
+### Domain & Systems Design
+
+| # | Title | Author(s) | Year | Focus |
+|---|-------|-----------|------|-------|
+| 10 | **Domain-Driven Design** | Eric Evans | 2003 | Ubiquitous language, bounded contexts, aggregates, repositories |
+| 11 | **Patterns of Enterprise Application Architecture** | Martin Fowler | 2002 | Layering, ORMs, concurrency, session state |
+| 12 | **Designing Data-Intensive Applications** | Martin Kleppmann | 2017 | Storage, replication, transactions, distributed systems |
+| 13 | **Release It!** (2nd ed.) | Michael T. Nygard | 2018 | Stability patterns, circuit breakers, bulkheads, production-readiness |
+
+### Testing
+
+| # | Title | Author(s) | Year | Focus |
+|---|-------|-----------|------|-------|
+| 14 | **Test-Driven Development: By Example** | Kent Beck | 2002 | TDD mechanics, baby steps, red-green-refactor |
+| 15 | **Growing Object-Oriented Software, Guided by Tests** | Freeman, Pryce | 2009 | Outside-in TDD, mock roles not objects |
+| 16 | **The Art of Unit Testing** (3rd ed.) | Roy Osherove | 2023 | Isolation, stubs, mocks, maintainable tests |
+| 17 | **xUnit Test Patterns** | Gerard Meszaros | 2007 | Test smell catalog, pattern library |
+
+### Engineering Culture & Process
+
+| # | Title | Author(s) | Year | Focus |
+|---|-------|-----------|------|-------|
+| 18 | **Software Engineering at Google** | Winters, Manshreck, Wright | 2020 | Scale, code review, testing culture, documentation |
+| 19 | **Continuous Delivery** | Jez Humble, David Farley | 2010 | Deployment pipelines, trunk-based dev, feature flags |
+| 20 | **The Mythical Man-Month** | Fred Brooks | 1975/1995 | Complexity, estimation, team coordination |
+| 21 | **Head First Design Patterns** (2nd ed.) | Freeman, Robson | 2020 | Approachable GoF with OO design principles |
+| 25 | **Accelerate** | Forsgren, Humble, Kim | 2018 | DORA empirics: four key metrics, capabilities that drive elite delivery performance |
+| 26 | **Team Topologies** | Skelton, Pais | 2019 | Four team types, three interaction modes, Inverse Conway Maneuver, cognitive load |
+
+### Language-Specific (High Signal)
+
+| # | Title | Author | Year | Focus |
+|---|-------|--------|------|-------|
+| 22 | **Effective Java** (3rd ed.) | Joshua Bloch | 2018 | Idiomatic Java; principles transfer to all OO languages |
+| 23 | **The Art of Readable Code** | Boswell, Foucher | 2011 | Surface-level clarity — names, loops, conditionals |
+| 24 | **SICP** | Abelson, Sussman | 1996 | Abstraction, recursion, interpreters — foundational |
+
+---
+
+## Articles & Online Resources
+
+### Martin Fowler (martinfowler.com)
+
+| Resource | Key Concept |
+|----------|-------------|
+| **Refactoring Catalog** (refactoring.com) | 68 named refactoring moves with mechanics |
+| **Code Smells** | Bloaters, OO abusers, change preventers, dispensables, couplers |
+| **Technical Debt** | Debt quadrant — reckless/prudent × deliberate/inadvertent |
+| **Is Design Dead?** | XP, emergent design, planned vs. evolutionary architecture |
+| **Beck's Design Rules** | Simple design: passes tests, reveals intent, no duplication, fewest elements |
+| **CQRS** | Command-query responsibility segregation |
+| **Event Sourcing** | Append-only logs as system of record |
+| **Strangler Fig Pattern** | Safe legacy migration strategy |
+| **Microservices** (with James Lewis) | Service boundaries, independent deployability |
+| **BranchByAbstraction** | Feature flag alternative for large refactors |
+| **Trunk Based Development** | Short-lived branches, continuous integration |
+| **Hexagonal Architecture (Ports and Adapters)** — Alistair Cockburn (alistair.cockburn.us) | Application as hexagon; ports defined by app, adapters connect external systems |
+
+### Robert C. Martin — blog.cleancoder.com
+
+| Resource | Key Concept |
+|----------|-------------|
+| **The Principles of OOD** | Original SOLID articles (SRP, OCP, LSP, ISP, DIP) |
+| **Clean Code series** | Application of Clean Code principles |
+| **Test Driven Development** | Why TDD is a professional discipline |
+| **The Three Laws of TDD** | Red, green, refactor mechanics |
+| **FP Basics series** | OO vs FP, immutability, side-effect isolation |
+
+### Joel Spolsky — joelonsoftware.com
+
+| Resource | Key Concept |
+|----------|-------------|
+| **The Joel Test** | 12-question dev environment health check |
+| **Things You Should Never Do, Part I** | Never rewrite from scratch |
+| **Painless Software Schedules** | Evidence-based estimation |
+| **The Law of Leaky Abstractions** | All non-trivial abstractions leak |
+
+### Google Engineering Practices
+
+| Resource | URL |
+|----------|-----|
+| **Code Review Developer Guide** | google.github.io/eng-practices |
+| **What to look for in a code review** | Includes: design, functionality, complexity, tests, naming, comments, style |
+| **The CL Author's Guide** | How to write reviewable code |
+
+### Standards & Principles
+
+| Resource | What It Covers |
+|----------|----------------|
+| **OWASP Top 10** | Web application security risks |
+| **OWASP ASVS** | Application Security Verification Standard |
+| **The Twelve-Factor App** (12factor.net) | SaaS application methodology |
+| **NASA's Power of 10 Rules** | Safety-critical C coding rules |
+| **Google Style Guides** | Python, Java, C++, Go, JS style standards |
+| **Airbnb JavaScript Style Guide** | Most-starred JS style guide |
+| **PEP 8** (Python) | Python style standard |
+
+### Key Papers
+
+| Paper | Author(s) | What It Introduced |
+|-------|-----------|-------------------|
+| **On the Criteria to Be Used in Decomposing Systems into Modules** | D.L. Parnas (1972) | Information hiding, interface/implementation split |
+| **A Note on Distributed Computing** | Waldo et al. (1994) | Why distributed objects ≠ local objects |
+| **Out of the Tar Pit** | Moseley, Marks (2006) | Complexity theory, functional-relational programming |
+| **No Silver Bullet** | Fred Brooks (1987) | Essential vs. accidental complexity |
+
+---
+
+## Summary: Concept Coverage
+
+| Concept | Primary Source(s) |
+|---------|-------------------|
+| Naming | Clean Code ch.2, APOSD, Art of Readable Code |
+| Function design | Clean Code ch.3, Code Complete |
+| SOLID | Uncle Bob articles + Clean Architecture |
+| Design patterns | GoF, Head First Design Patterns |
+| Refactoring | Fowler Refactoring 2nd ed., Working Effectively with Legacy Code |
+| Testing / TDD | TDD by Example, GOOS, Art of Unit Testing |
+| Architecture | Clean Architecture, PEAA, DDD |
+| Error handling | Clean Code ch.7, Release It! |
+| Performance | Code Complete, DDIA |
+| Security | OWASP Top 10, ASVS |
+| Code review | Software Eng @ Google, Google Eng Practices |
+| Complexity management | APOSD, Out of the Tar Pit, No Silver Bullet |
+
+---
+
+*Created: 2026-05-01 — foundation for clean-code skill synthesis*
