@@ -1,8 +1,24 @@
 # Code Quality Skills — Sources & Index
 
-Reference documentation for the `/quality` framework. This directory holds the canonical (human-readable) versions of every skill. The executable agent files at `~/.claude/agents/quality-*.md` are derived from these.
+## What this is
 
-For the master inventory of every book and article that informed this work, see [`CS-Best-Practices-Resources.md`](CS-Best-Practices-Resources.md).
+This repo is a **code-review framework** that runs inside [Claude Code](https://docs.claude.com/claude-code) (via the `/quality` slash command) and [GitHub Copilot](Copilot-Integration.md) (via per-skill prompts). It spawns specialized review agents — for code quality, architecture, refactoring, testing, security, delivery, distributed systems, design patterns, persistence, and process discipline — against your current `git diff` and aggregates their findings into a severity-ranked verdict (`SHIP IT` / `NEEDS WORK` / `SIGNIFICANT ISSUES`).
+
+Each agent is a focused lens. The orchestrator picks which lenses are relevant to the diff, runs them in parallel, deduplicates overlap, and returns one report.
+
+## How it was created
+
+The framework is a **distillation of the canonical CS literature** into agent-executable form. The pipeline:
+
+1. **Source selection.** A reading list of ~24 canonical books plus key articles and papers (Clean Code, Refactoring, A Philosophy of Software Design, Clean Architecture, GOOS, Designing Data-Intensive Applications, PEAA, Release It!, Continuous Delivery, GoF, the OWASP standards, etc.) — the full inventory lives in [`CS-Best-Practices-Resources.md`](CS-Best-Practices-Resources.md).
+2. **Per-source summaries.** Each book/article was summarized into a structured note in [`Resources/`](Resources/) (Books, Articles, Papers, Standards, Originals). These summaries capture the principles, smell catalogs, patterns, and counterpoints from each source — not full reproductions, but enough to drive synthesis.
+3. **Cross-source synthesis into skills.** The summaries were synthesized into ~12 topical **skill documents** in [`skills/`](skills/) — the canonical, human-readable references. Each skill cites the specific chapters and articles that drove each section, and reconciles tensions between sources (e.g., Clean Code ch.4 vs. APOSD ch.12-15 on comments).
+4. **Agent compilation.** Each skill is compiled into a concise **agent prompt** at `~/.claude/agents/quality-*.md` (and a parallel Copilot prompt under [`copilot/prompts/`](copilot/prompts/)). The agents are the executable form; the skill files are the reasoning trail.
+5. **Orchestration.** The `/quality` slash command routes a diff to the relevant agents, runs them in parallel, normalizes severity, and aggregates the report.
+
+The "Sources by Skill" section below shows exactly which book/article/chapter informed each part of each skill, so any finding the framework produces can be traced back to a primary source.
+
+For the master inventory of every book and article that informed this work, see [`CS-Best-Practices-Resources.md`](CS-Best-Practices-Resources.md). For the lineage of individual sections within each skill, see "Sources by Skill" further down.
 
 ---
 
