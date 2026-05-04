@@ -21,20 +21,66 @@ git rev-parse --is-inside-work-tree 2>/dev/null
 
 **If not a git repo:** ask the user which files or directories to review explicitly. Skip the diff steps and pass file paths directly to agents.
 
-**If in a git repo:**
+**If in a git repo:** detect the current branch and pick the right diff scope.
+
+```bash
+git rev-parse --abbrev-ref HEAD
+```
+
+### Case A — On `main`, `staging`, or `develop` (long-lived branches)
+
+Review what's about to be committed. In priority order:
+
+```bash
+git diff --cached                    # staged
+git diff --cached --name-only
+```
+
+If empty, fall back to working tree:
 ```bash
 git diff
 git diff --name-only
 git status --short
 ```
 
-If `git diff` is empty, check staged changes:
+If still empty, ask the user which files to review.
+
+### Case B — On a feature branch (anything else)
+
+Review the entire branch's work since it forked, plus any uncommitted changes on top.
+
+**Find the fork point.** Try parent candidates in priority order: `develop`, `staging`, `main`. Use the first one that exists locally or on `origin`. Prefer the remote ref (`origin/<branch>`) since the local copy may be stale; fall back to the local ref if no remote.
+
 ```bash
-git diff --cached
-git diff --cached --name-only
+# Probe each candidate; first hit wins
+for base in develop staging main; do
+  if git rev-parse --verify --quiet "origin/$base" >/dev/null; then
+    fork=$(git merge-base HEAD "origin/$base")
+    parent="origin/$base"
+    break
+  elif git rev-parse --verify --quiet "$base" >/dev/null; then
+    fork=$(git merge-base HEAD "$base")
+    parent="$base"
+    break
+  fi
+done
 ```
 
-If still empty, ask the user which files to review.
+**Build the diff** — all commits on the branch + uncommitted working-tree changes:
+
+```bash
+git diff "$fork"...HEAD              # branch commits since fork
+git diff "$fork"...HEAD --name-only
+git diff                             # uncommitted on top
+git diff --name-only
+git status --short
+```
+
+The combined file list (branch commits ∪ working tree) feeds Step 2's auto-selection. The combined diff content feeds Step 4's agents.
+
+**If no parent candidate exists** (rare — fresh repo, detached HEAD, exotic setup): fall back to Case A's logic and warn the user that fork-point detection failed.
+
+**Edge case — feature-on-feature branches.** If `feature/x` was branched off `feature/y` (not `develop`), this probe will diff against `develop` and over-include `feature/y`'s commits. If the diff looks larger than expected, ask the user to confirm the base branch.
 
 ---
 
@@ -212,8 +258,9 @@ Verdict: [SHIP IT / NEEDS WORK / SIGNIFICANT ISSUES]
 
 ## Tips
 
-- **Run before committing**, not after. Critical issues block the commit.
-- **`/quality`** — default; runs always-on agents based on what changed. Best as a pre-commit pass.
+- **Scope depends on the branch.** On `main`/`staging`/`develop`, `/quality` reviews staged (or working-tree) changes — a pre-commit gate. On a feature branch, it reviews the entire branch since it forked from `develop`/`staging`/`main` (whichever is its parent), plus uncommitted changes on top — a pre-PR gate.
+- **Run before committing on long-lived branches, before opening a PR on feature branches.** Critical issues block the commit/PR.
+- **`/quality`** — default; runs always-on agents based on what changed.
 - **`/quality code`** — fast, focused. Naming, smells, FP, error handling, performance, structure.
 - **`/quality arch`** — before large features. Catches structural problems + resilience-pattern gaps before they're baked in.
 - **`/quality refactor`** — before adding to messy code. Make the change easy, then make the easy change.
